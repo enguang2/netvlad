@@ -52,7 +52,9 @@ net_vlad = netvlad.NetVLAD(num_clusters=64, dim=encoder_dim, vladv2=False).to(de
 
 # Load the checkpoint
 checkpoint_path = 'vgg16_netvlad_checkpoint/checkpoints/checkpoint.pth.tar'  # Update this path with your actual checkpoint
-checkpoint = torch.load(checkpoint_path, map_location=device)
+# checkpoint = torch.load(checkpoint_path, map_location=device)
+checkpoint = torch.load(checkpoint_path, map_location=device, weights_only = False)
+
 
 # Separate encoder and net_vlad weights
 encoder_state_dict = {k.replace('encoder.', ''): v for k, v in checkpoint['state_dict'].items() if 'encoder' in k}
