@@ -173,3 +173,26 @@ def extract_vlad_encoding_path(image_path, compress = True, normalize = True):
 
 extracted_tensor = extract_vlad_encoding_path('checkboard_7.jpg', compress = True)
 print(extracted_tensor)
+
+import time
+
+# Define image paths (update as needed)
+image_path_1 = 'checkboard_7.jpg'  # Update with actual path
+image_path_2 = 'checkboard_7.jpg'  # Update with actual path
+
+# Start timing
+start_time = time.time()
+
+# Extract VLAD encodings for both images
+vlad_encoding_1 = extract_vlad_encoding_path(image_path_1, compress=True, normalize=False).view(-1)  # Flatten the encoding
+vlad_encoding_2 = extract_vlad_encoding_path(image_path_2, compress=True, normalize=False).view(-1)  # Flatten the encoding
+
+# Calculate Euclidean distance
+euclidean_distance = torch.dist(vlad_encoding_1, vlad_encoding_2, p=2)
+
+# End timing
+end_time = time.time()
+execution_time = end_time - start_time
+
+print(f"Euclidean distance between {image_path_1} and {image_path_2}: {euclidean_distance.item()}")
+print(f"Execution time: {execution_time:.4f} seconds")
